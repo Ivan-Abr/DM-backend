@@ -1,13 +1,17 @@
+val appVersion: String by project
+val liquibaseVersion: String by project
+val jwtVersion: String by project
+
 plugins {
-	kotlin("jvm") version "1.9.25"
-	kotlin("plugin.spring") version "1.9.25"
+	kotlin("jvm")
+	kotlin("plugin.spring")
+	kotlin("plugin.jpa")
 	id("org.springframework.boot") version "3.4.4"
 	id("io.spring.dependency-management") version "1.1.7"
-	kotlin("plugin.jpa") version "1.9.25"
 }
 
 group = "ru.kentagon"
-version = "0.0.1-SNAPSHOT"
+version = appVersion
 
 java {
 	toolchain {
@@ -26,7 +30,14 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("org.postgresql:postgresql")
+
+	implementation("org.postgresql:postgresql")
+	implementation("org.liquibase:liquibase-core:$liquibaseVersion")
+
+	implementation("io.jsonwebtoken:jjwt-api:$jwtVersion")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:$jwtVersion")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jwtVersion")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.security:spring-security-test")
