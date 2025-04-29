@@ -1,6 +1,7 @@
 val appVersion: String by project
 val liquibaseVersion: String by project
 val jwtVersion: String by project
+val openapiVersion: String by project
 
 plugins {
 	kotlin("jvm")
@@ -37,6 +38,8 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-api:$jwtVersion")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:$jwtVersion")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jwtVersion")
+
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$openapiVersion")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

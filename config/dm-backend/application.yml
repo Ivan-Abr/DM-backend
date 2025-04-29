@@ -7,7 +7,6 @@ server:
     mbeanregistry:
       enabled: true
 
-
 debug: ${DEBUG:false}
 
 spring:
