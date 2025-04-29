@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250429-1835-create_answers_table
+      author: Ivan Abramov
+      comment: Создание таблицы ответов
+      changes:
+        - createTable:
+            tableName: answers
+            remarks: ответы
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: organization_id
+                  remarks: Идентификатор организации
+                  type: uuid
+              - column:
+                  name: mark_id
+                  remarks: Идентификатор оценки ЦЗ
+                  type: uuid
+              - column:
+                  name: milestone_id
+                  remarks: Идентификатор вехи
+                  type: uuid
+        - addForeignKeyConstraint:
+            baseColumnNames: organization_id
+            baseTableName: answers
+            constraintName: fk_answers_organizations_id
+            referencedColumnNames: id
+            referencedTableName: organizations
+            onDelete: CASCADE
+            onUpdate: NO ACTION
+        - addForeignKeyConstraint:
+            baseColumnNames: mark_id
+            baseTableName: answers
+            constraintName: fk_answers_marks_id
+            referencedColumnNames: id
+            referencedTableName: marks
+            onDelete: CASCADE
+            onUpdate: NO ACTION
+        - addForeignKeyConstraint:
+            baseColumnNames: milestone_id
+            baseTableName: answers
+            constraintName: fk_answers_milestones_id
+            referencedColumnNames: id
+            referencedTableName: milestones
+            onDelete: CASCADE
+            onUpdate: NO ACTION
