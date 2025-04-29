@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250429-1320-create_layers_table
+      author: Ivan Abramov
+      comment: Создание таблицы слоёв ЦЗ
+      changes:
+        - createTable:
+            tableName: layers
+            remarks: Слои ЦЗ
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  remarks: Наименование слоя
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
