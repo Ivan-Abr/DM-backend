@@ -1,0 +1,97 @@
+server:
+  port: ${SERVER_PORT:8080}
+  max-http-request-header-size: 128KB
+  tomcat:
+    threads:
+      min-spare: 0
+    mbeanregistry:
+      enabled: true
+
+
+debug: ${DEBUG:false}
+
+spring:
+  application:
+    name: ${APP_NAME:dm-backend}
+  devtools:
+    livereload:
+      enabled: false
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost:5432}/${DB_DATABASE:dm_dev}?ApplicationName=${dm.jdbc-name}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:3002}
+  liquibase:
+    change-log: /db/changelog/change-log.yml
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: {DEBUG_FORMAT_SQL:false}
+        generate_statistics: true
+        session:
+          events:
+            log: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  profiles:
+    group:
+      default: default, speedrun
+      dev: default, develop, local
+      test: default, local, test
+
+management:
+  server:
+    port: ${METRICS_PORT:8090}
+  endpoints:
+    web:
+      base-path: /stat
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+      group:
+        liveness:
+          include:
+            - livenessState
+            - db
+  health:
+    defaults:
+      enabled: false
+    db:
+      enabled: true
+    ping:
+      enabled: true
+  info:
+    defaults:
+      enabled: false
+    build:
+      enabled: true
+    os:
+      enabled: true
+    java:
+      enabled: true
+  defaults:
+    metrics:
+      export:
+        enabled: false
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        boot: INFO
+        boot.actuate.endpoint.web.servlet: INFO
+        boot.autoconfigure: WARN
+        web: INFO
+    sql: INFO
+    org.hibernate.orm.jdbc.bind: INFO
+    ru:
+      speedrun:
+        speedrun: ${LOG_LEVEL:DEBUG}
