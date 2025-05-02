@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250502-1405-create_refresh_token_table
+      author: Ivan Abramov
+      comment: Создание таблицы рефреш токенов
+      changes:
+        - createTable:
+            tableName: refresh_tokens
+            remarks: рефреш токены
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  remarks: Идентификатор пользователя
+                  type: uuid
+              - column:
+                  name: expiry_date
+                  remarks: Дата
+                  type: date
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: refresh_tokens
+            constraintName: fk_user_refresh_id
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: CASCADE
+            onUpdate: NO ACTION
