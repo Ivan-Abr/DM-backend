@@ -1,7 +1,6 @@
 package ru.kentagon.dm.models
 
 import jakarta.persistence.*
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.util.UUID
@@ -16,6 +15,7 @@ class User(
 
     val email: String,
 
+    @Column(name = "password")
     val userPassword: String,
 
     @Enumerated(EnumType.STRING)

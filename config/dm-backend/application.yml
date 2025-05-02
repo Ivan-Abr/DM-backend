@@ -34,7 +34,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   profiles:
     group:
-      default: default, speedrun
+      default: default, dm
       dev: default, develop, local
       test: default, local, test
 
