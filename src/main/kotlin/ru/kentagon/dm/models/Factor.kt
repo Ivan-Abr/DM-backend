@@ -9,9 +9,9 @@ import java.util.UUID
 @Table(name = "factors")
 class Factor(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
-    val name: String,
+    var name: String,
 
-    val shortname: String
+    var shortname: String
 )

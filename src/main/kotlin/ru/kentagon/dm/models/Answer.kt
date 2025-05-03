@@ -7,17 +7,17 @@ import java.util.UUID
 @Table(name = "answers")
 class Answer(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id", nullable = false)
-    val organization: Organization,
+    var organization: Organization,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mark_id", nullable =  false)
-    val mark: Mark,
+    var mark: Mark,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "milestone_id")
-    val milestone: Milestone
+    var milestone: Milestone
 )

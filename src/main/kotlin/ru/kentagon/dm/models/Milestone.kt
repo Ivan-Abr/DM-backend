@@ -11,13 +11,13 @@ import java.util.UUID
 @Table(name = "milestones")
 class Milestone(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
     @Column(name = "date_from")
-    val dateFrom: LocalDate,
+    var dateFrom: LocalDate,
 
     @Column(name = "date_to")
-    val dateTo: LocalDate,
+    var dateTo: LocalDate,
 
-    val year: Int
+    var year: Int
 )

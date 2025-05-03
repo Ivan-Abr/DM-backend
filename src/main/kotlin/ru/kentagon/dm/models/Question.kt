@@ -7,17 +7,17 @@ import java.util.UUID
 @Table(name = "questions")
 class Question(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "layer_id", nullable = false)
-    val layer: Layer,
+    var layer: Layer,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "factor_id", nullable = false)
-    val factor: Factor,
+    var factor: Factor,
 
-    val name: String,
+    var name: String,
 
-    val annotation: String
+    var annotation: String
 )

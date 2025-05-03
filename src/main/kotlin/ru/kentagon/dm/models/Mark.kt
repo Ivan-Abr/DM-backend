@@ -7,13 +7,13 @@ import java.util.UUID
 @Table(name = "marks")
 class Mark(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
-    val question: Question,
+    var question: Question,
 
-    val annotation: String,
+    var annotation: String,
 
-    val value: Int
+    var value: Int
 )

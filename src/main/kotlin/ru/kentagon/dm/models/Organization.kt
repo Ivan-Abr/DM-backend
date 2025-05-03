@@ -7,15 +7,15 @@ import java.util.UUID
 @Table(name = "organizations")
 class Organization(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expert_id", nullable = false)
-    val expert: User,
+    var expert: User,
 
-    val name: String,
+    var name: String,
 
-    val annotation: String,
+    var annotation: String,
 
-    val contacts: String
+    var contacts: String
 )

@@ -9,7 +9,7 @@ import java.util.UUID
 @Table(name = "layers")
 class Layer(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
-    val name: String
+    var name: String
 )
