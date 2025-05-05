@@ -19,7 +19,7 @@ import java.util.UUID
 @RequestMapping("api/question")
 class QuestionController(private val questionService: QuestionService) {
     @GetMapping
-    fun getAllQuestions(): List<Question> = questionService.gateAllQuestions()
+    fun getAllQuestions(): List<Question> = questionService.getAllQuestions()
 
     @GetMapping("/{id}")
     fun getQuestionById(@PathVariable id: UUID): Question =

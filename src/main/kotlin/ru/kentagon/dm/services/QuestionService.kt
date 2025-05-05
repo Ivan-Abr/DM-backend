@@ -3,8 +3,6 @@ package ru.kentagon.dm.services
 import org.springframework.stereotype.Service
 import ru.kentagon.dm.dto.questions.CreateQuestionDTO
 import ru.kentagon.dm.dto.questions.UpdateQuestionDTO
-import ru.kentagon.dm.models.Factor
-import ru.kentagon.dm.models.Layer
 import ru.kentagon.dm.models.Question
 import ru.kentagon.dm.repositories.FactorRepository
 import ru.kentagon.dm.repositories.LayerRepository
@@ -17,7 +15,7 @@ class QuestionService(
     private val layerRepository: LayerRepository,
     private val factorRepository: FactorRepository
 ) {
-    fun gateAllQuestions(): List<Question> = questionRepository.findAll()
+    fun getAllQuestions(): List<Question> = questionRepository.findAll()
 
     fun getQuestionById(id: UUID): Question = questionRepository.findById(id).get()
 
