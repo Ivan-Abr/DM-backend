@@ -6,4 +6,4 @@ import ru.kentagon.dm.models.Organization
 import java.util.UUID
 
 @Repository
-interface OrgainzationRepository : JpaRepository<Organization, UUID>
+interface OrganizationRepository : JpaRepository<Organization, UUID>

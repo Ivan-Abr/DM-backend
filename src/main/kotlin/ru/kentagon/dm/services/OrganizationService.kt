@@ -4,13 +4,13 @@ import org.springframework.stereotype.Service
 import ru.kentagon.dm.dto.organizations.CreateOrganizationDTO
 import ru.kentagon.dm.dto.organizations.UpdateOrganizationDTO
 import ru.kentagon.dm.models.Organization
-import ru.kentagon.dm.repositories.OrgainzationRepository
+import ru.kentagon.dm.repositories.OrganizationRepository
 import ru.kentagon.dm.repositories.UserRepository
 import java.util.*
 
 @Service
 class OrganizationService(
-    private val organizationRepository: OrgainzationRepository,
+    private val organizationRepository: OrganizationRepository,
     private val userRepository: UserRepository
 ) {
     fun getAllOrganizations(): List<Organization> = organizationRepository.findAll()
