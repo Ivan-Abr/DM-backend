@@ -1,4 +1,4 @@
-package ru.kentagon.dm.config
+package ru.kentagon.dm.auth
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
