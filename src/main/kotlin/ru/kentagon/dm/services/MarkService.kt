@@ -32,7 +32,7 @@ class MarkService(
         markDTO.questionId?.let { mark.question = questionRepository.findById(it).get() }
         markDTO.value?.let { mark.value = it }
         markDTO.annotation?.let { mark.annotation = it }
-        return mark
+        return markRepository.save(mark)
     }
 
     fun deleteMark(id: UUID) = markRepository.deleteById(id)

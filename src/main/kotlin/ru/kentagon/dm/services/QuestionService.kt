@@ -37,7 +37,7 @@ class QuestionService(
         questionDTO.factorId?.let { question.factor = factorRepository.findById(it).get() }
         questionDTO.name?.let { question.name = it }
         questionDTO.annotation?.let { question.annotation =  it}
-        return question
+        return questionRepository.save(question)
     }
 
     fun deleteQuestion(id: UUID){

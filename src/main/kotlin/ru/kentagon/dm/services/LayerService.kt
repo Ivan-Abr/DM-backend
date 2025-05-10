@@ -19,7 +19,7 @@ class LayerService(private val layerRepository: LayerRepository) {
     fun updateLayer(id: UUID, updateLayerDTO: UpdateLayerDTO) : Layer {
         val layer = layerRepository.findById(id).get()
         updateLayerDTO.name?.let { layer.name = it }
-        return layer
+        return layerRepository.save(layer)
     }
 
     fun deleteLayer(id: UUID) {
