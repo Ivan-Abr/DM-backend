@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.kentagon.dm.dto.questions.CreateQuestionDTO
 import ru.kentagon.dm.dto.questions.UpdateQuestionDTO
+import ru.kentagon.dm.dto.questions.ViewQuestionDTO
 import ru.kentagon.dm.models.Layer
 import ru.kentagon.dm.models.Question
 import ru.kentagon.dm.services.QuestionService
@@ -19,10 +20,10 @@ import java.util.UUID
 @RequestMapping("api/question")
 class QuestionController(private val questionService: QuestionService) {
     @GetMapping
-    fun getAllQuestions(): List<Question> = questionService.getAllQuestions()
+    fun getAllQuestions(): List<ViewQuestionDTO> = questionService.getAllQuestions()
 
     @GetMapping("/{id}")
-    fun getQuestionById(@PathVariable id: UUID): Question =
+    fun getQuestionById(@PathVariable id: UUID): ViewQuestionDTO =
         questionService.getQuestionById(id)
 
     @PostMapping

@@ -19,11 +19,13 @@ class MarkService(
 
     fun createMark(markDTO: CreateMarkDTO): Mark {
         val question = questionRepository.findById(markDTO.questionId).get()
-        return Mark(
-            UUID.randomUUID(),
-            question,
-            markDTO.annotation,
-            markDTO.value
+        return markRepository.save(
+            Mark(
+                UUID.randomUUID(),
+                question,
+                markDTO.annotation,
+                markDTO.value
+            )
         )
     }
 
