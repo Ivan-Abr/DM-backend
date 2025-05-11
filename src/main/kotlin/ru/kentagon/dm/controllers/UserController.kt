@@ -20,7 +20,7 @@ class UserController(private val userService: UserService) {
     fun getAllUsers(): List<ViewUserDTO> = userService.getAllUsers()
 
     @GetMapping("/{id}")
-    fun getUserById(id: UUID) = userService.getUserById(id)
+    fun getUserById(@PathVariable id: UUID): ViewUserDTO = userService.getUserById(id)
 
     @PatchMapping("/{id}")
     fun updateUser(@PathVariable id: UUID, @RequestBody userDTO: UpdateUserDTO): User =

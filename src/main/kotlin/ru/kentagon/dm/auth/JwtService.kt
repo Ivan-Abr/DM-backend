@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
+import ru.kentagon.dm.models.User
 import ru.kentagon.dm.repositories.UserRepository
 import java.util.*
 import java.util.function.Function
@@ -31,10 +32,16 @@ class JwtService(private val userRepository: UserRepository) {
         return claimsResolver.apply(claims)
     }
 
-    fun generateToken(userDetails: UserDetails): String {
-        val authorities = userDetails.authorities
+    fun generateToken(user: User): String {
+        val authorities = user.authorities
         val roles = authorities.map { it.authority }
-        return generateToken(mapOf("roles" to roles), userDetails)
+        val id = user.id
+        return generateToken(
+            mapOf(
+                "id" to id,
+                "roles" to roles
+            ),
+            user)
     }
 
     fun generateToken(
