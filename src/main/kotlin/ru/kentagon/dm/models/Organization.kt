@@ -9,7 +9,7 @@ class Organization(
     @Id
     var id: UUID = UUID.randomUUID(),
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "expert_id", nullable = false)
     var expert: User,
 

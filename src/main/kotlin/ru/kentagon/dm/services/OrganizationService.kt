@@ -2,6 +2,7 @@ package ru.kentagon.dm.services
 
 import org.springframework.stereotype.Service
 import ru.kentagon.dm.dto.organizations.CreateOrganizationDTO
+import ru.kentagon.dm.dto.organizations.ViewOrganizationDTO
 import ru.kentagon.dm.dto.organizations.UpdateOrganizationDTO
 import ru.kentagon.dm.models.Organization
 import ru.kentagon.dm.repositories.OrganizationRepository
@@ -13,9 +14,16 @@ class OrganizationService(
     private val organizationRepository: OrganizationRepository,
     private val userRepository: UserRepository
 ) {
-    fun getAllOrganizations(): List<Organization> = organizationRepository.findAll()
+    fun getAllOrganizations(): List<ViewOrganizationDTO> =
+        organizationRepository.findAll().map { ViewOrganizationDTO(it) }
 
-    fun getOrganizationById(id: UUID): Organization = organizationRepository.findById(id).get()
+    fun getOrganizationById(id: UUID): ViewOrganizationDTO =
+        ViewOrganizationDTO(organizationRepository.findById(id).get())
+
+    fun getOrganizationsByUser(userId: UUID): List<ViewOrganizationDTO> {
+        val user = userRepository.findById(userId).get()
+        return organizationRepository.getOrganizationsByUser(user).map { ViewOrganizationDTO(it) }
+    }
 
     fun createOrganization(organizationDTO: CreateOrganizationDTO): Organization =
         organizationRepository.save(
@@ -30,7 +38,9 @@ class OrganizationService(
 
     fun updateOrganization(id: UUID, organizationDTO: UpdateOrganizationDTO): Organization {
         val organization = organizationRepository.findById(id).get()
-        organizationDTO.expertId?.let { organization.expert = userRepository.findById(it).get() }
+        organizationDTO.expertId?.let {
+            organization.expert = userRepository.findById(it).get()
+        }
         organizationDTO.name?.let { organization.name = it }
         organizationDTO.annotation?.let { organization.annotation = it }
         organizationDTO.contacts?.let { organization.contacts = it }
