@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.kentagon.dm.dto.marks.CreateMarkDTO
 import ru.kentagon.dm.dto.marks.UpdateMarkDTO
+import ru.kentagon.dm.dto.marks.ViewMarkDTO
 import ru.kentagon.dm.models.Mark
 import ru.kentagon.dm.services.MarkService
 import java.util.UUID
@@ -18,10 +19,10 @@ import java.util.UUID
 @RequestMapping("api/mark")
 class MarkController(private val markService: MarkService) {
     @GetMapping
-    fun getAllMarks(): List<Mark> = markService.getAllMarks()
+    fun getAllMarks(): List<ViewMarkDTO> = markService.getAllMarks().map { ViewMarkDTO(it) }
 
     @GetMapping("/{id}")
-    fun getMarkById(@PathVariable id: UUID): Mark = markService.getMarkById(id)
+    fun getMarkById(@PathVariable id: UUID): ViewMarkDTO = ViewMarkDTO(markService.getMarkById(id))
 
     @PostMapping
     fun createMark(@RequestBody markDTO: CreateMarkDTO): Mark = markService.createMark(markDTO)
