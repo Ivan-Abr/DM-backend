@@ -29,4 +29,21 @@ class AnswerController(private val answerService: AnswerService) {
     fun deleteAnswer(@PathVariable id: UUID) {
         answerService.deleteAnswer(id)
     }
+
+    @GetMapping(path = ["all/layer/{layerId}/org/{orgId}"])
+    fun getAllDataByLayerOrg(@PathVariable("layerId") layerId:Long,
+                             @PathVariable("orgId") orgId:Long): Any{
+        return answerService.getAllDataByLayerOrg(layerId,orgId)
+    }
+
+    @GetMapping(path = ["all/org/{orgId}"])
+    fun getAllDataByOrg(@PathVariable("orgId") orgId:Long): List<Any>{
+        return answerService.getAllDataByOrg(orgId)
+    }
+
+    @GetMapping(path = ["all/factor/{factorId}/org/{orgId}"])
+    fun getAllDataByFactorOrg(@PathVariable("factorId") factorId:Long,
+                              @PathVariable("orgId") orgId:Long): Any{
+        return answerService.getAllDataByFactorOrg(factorId,orgId)
+    }
 }

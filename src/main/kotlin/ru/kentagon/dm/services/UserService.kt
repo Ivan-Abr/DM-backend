@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import ru.kentagon.dm.dto.user.UpdateUserDTO
 import ru.kentagon.dm.dto.user.ViewUserDTO
+import ru.kentagon.dm.models.Role
 import ru.kentagon.dm.models.User
 import ru.kentagon.dm.repositories.RefreshTokenRepository
 import ru.kentagon.dm.repositories.UserRepository
@@ -28,7 +29,7 @@ class UserService(
         userDTO.name?.let { user.name = it }
         userDTO.email?.let { user.email = it}
         userDTO.password?.let { user.userPassword = passwordEncoder.encode(it) }
-
+        userDTO.role?.let { user.role = Role.valueOf(it) }
         return userRepository.save(user)
     }
 
