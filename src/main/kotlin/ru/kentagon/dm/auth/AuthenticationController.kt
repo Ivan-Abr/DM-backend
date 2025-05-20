@@ -23,7 +23,7 @@ class AuthenticationController(
     }
 
     @PostMapping("/login")
-    fun register(
+    fun authenticate(
         @RequestBody request: LoginRequestDTO
     ): ResponseEntity<ResponseDTO?> {
         return ResponseEntity.ok(authenticationService.authenticate(request))

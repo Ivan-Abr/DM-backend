@@ -12,8 +12,8 @@ import io.swagger.v3.oas.annotations.servers.Server
 
 @OpenAPIDefinition(
     info = Info(
-        description = "OpenApi documentation for Speedrun API",
-        title = "Speedrun.ru",
+        description = "OpenApi documentation for DM API",
+        title = "dm-backend",
         version = "1.0",
     ),
     servers = [

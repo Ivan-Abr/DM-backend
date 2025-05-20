@@ -17,7 +17,6 @@ import ru.kentagon.dm.auth.dto.LoginRequestDTO
 import ru.kentagon.dm.auth.dto.RefreshRequestDTO
 import ru.kentagon.dm.auth.dto.RegisterRequestDTO
 import ru.kentagon.dm.auth.dto.ResponseDTO
-import ru.kentagon.dm.config.JwtService
 import java.util.*
 
 @Service

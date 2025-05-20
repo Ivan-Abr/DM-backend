@@ -1,4 +1,4 @@
-package ru.kentagon.dm.config
+package ru.kentagon.dm.auth
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
@@ -7,18 +7,21 @@ import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
+import ru.kentagon.dm.models.User
+import ru.kentagon.dm.repositories.UserRepository
 import java.util.*
 import java.util.function.Function
 import javax.crypto.SecretKey
+import kotlin.collections.HashMap
 
 @Service
-class JwtService {
+class JwtService(private val userRepository: UserRepository) {
 
     @Value("\${dm.jwt.secret-key}")
     private lateinit var secretKey: String
 
     @Value("\${dm.jwt.access-duration}")
-    private var expirationDate: Long = 1000 * 60 * 24
+    private var expirationDate: Long = 1000 * 60 * 60 * 24
 
     fun extractUsername(token: String): String? {
         return extractClaim(token, Claims::getSubject)
@@ -29,8 +32,16 @@ class JwtService {
         return claimsResolver.apply(claims)
     }
 
-    fun generateToken(userDetails: UserDetails): String {
-        return generateToken(HashMap(), userDetails)
+    fun generateToken(user: User): String {
+        val authorities = user.authorities
+        val roles = authorities.map { it.authority }
+        val id = user.id
+        return generateToken(
+            mapOf(
+                "id" to id,
+                "roles" to roles
+            ),
+            user)
     }
 
     fun generateToken(
@@ -74,4 +85,8 @@ class JwtService {
         return Keys.hmacShaKeyFor(keyBytes)
     }
 
+    fun extractRoles(token: String): List<String> {
+        val claims = extractAllClaims(token)
+        return claims.get("roles", List::class.java) as List<String>
+    }
 }

@@ -9,17 +9,17 @@ import java.util.UUID
 @Table(name = "users")
 class User(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
-    val name: String,
+    var name: String,
 
-    val email: String,
+    var email: String,
 
     @Column(name = "password")
-    val userPassword: String,
+    var userPassword: String,
 
     @Enumerated(EnumType.STRING)
-    val role: Role
+    var role: Role
 ) : UserDetails {
     override fun getAuthorities(): List<SimpleGrantedAuthority> {
         return listOf(SimpleGrantedAuthority("ROLE_${role.name}"))
