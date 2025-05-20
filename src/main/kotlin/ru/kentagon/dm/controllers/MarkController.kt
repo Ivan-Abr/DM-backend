@@ -24,6 +24,9 @@ class MarkController(private val markService: MarkService) {
     @GetMapping("/{id}")
     fun getMarkById(@PathVariable id: UUID): ViewMarkDTO = ViewMarkDTO(markService.getMarkById(id))
 
+    @GetMapping("question/{id}")
+    fun getMarksByQuestion(@PathVariable id: UUID): List<ViewMarkDTO> = markService.getMarksByQuestion(id).map { ViewMarkDTO(it) }
+
     @PostMapping
     fun createMark(@RequestBody markDTO: CreateMarkDTO): Mark = markService.createMark(markDTO)
 

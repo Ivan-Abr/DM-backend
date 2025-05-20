@@ -17,6 +17,8 @@ class MarkService(
 
     fun getMarkById(id: UUID): Mark = markRepository.findById(id).get()
 
+    fun getMarksByQuestion(questionId: UUID): List<Mark> = markRepository.getMarksByQuestion(questionId)
+
     fun createMark(markDTO: CreateMarkDTO): Mark {
         val question = questionRepository.findById(markDTO.questionId).get()
         return markRepository.save(
