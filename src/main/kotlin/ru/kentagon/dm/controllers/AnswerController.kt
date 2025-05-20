@@ -31,19 +31,19 @@ class AnswerController(private val answerService: AnswerService) {
     }
 
     @GetMapping(path = ["all/layer/{layerId}/org/{orgId}"])
-    fun getAllDataByLayerOrg(@PathVariable("layerId") layerId:Long,
-                             @PathVariable("orgId") orgId:Long): Any{
+    fun getAllDataByLayerOrg(@PathVariable("layerId") layerId:UUID,
+                             @PathVariable("orgId") orgId:UUID): Any{
         return answerService.getAllDataByLayerOrg(layerId,orgId)
     }
 
     @GetMapping(path = ["all/org/{orgId}"])
-    fun getAllDataByOrg(@PathVariable("orgId") orgId:Long): List<Any>{
+    fun getAllDataByOrg(@PathVariable("orgId") orgId:UUID): List<Any>{
         return answerService.getAllDataByOrg(orgId)
     }
 
     @GetMapping(path = ["all/factor/{factorId}/org/{orgId}"])
-    fun getAllDataByFactorOrg(@PathVariable("factorId") factorId:Long,
-                              @PathVariable("orgId") orgId:Long): Any{
+    fun getAllDataByFactorOrg(@PathVariable("factorId") factorId:UUID,
+                              @PathVariable("orgId") orgId:UUID): Any{
         return answerService.getAllDataByFactorOrg(factorId,orgId)
     }
 }

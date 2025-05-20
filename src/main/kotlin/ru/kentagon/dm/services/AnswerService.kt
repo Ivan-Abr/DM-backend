@@ -41,15 +41,15 @@ class AnswerService(
 
     fun deleteAnswer(id: UUID) = answerRepository.deleteById(id)
 
-    fun getAllDataByLayerOrg(layerId: Long, orgId: Long): Any{
+    fun getAllDataByLayerOrg(layerId: UUID, orgId: UUID): Any{
         return answerRepository.getAllByLayerOrg(layerId, orgId)
     }
 
-    fun getAllDataByFactorOrg(factorId: Long, orgId: Long): Any{
+    fun getAllDataByFactorOrg(factorId: UUID, orgId: UUID): Any{
         return answerRepository.getAllByFactorOrg(factorId, orgId)
     }
 
-    fun getAllDataByOrg(orgId: Long): List<Any>{
+    fun getAllDataByOrg(orgId: UUID): List<Any>{
         return answerRepository.getAllByOrgId(orgId)
     }
 }
