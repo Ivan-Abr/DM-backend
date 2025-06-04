@@ -1,5 +1,6 @@
 package ru.kentagon.dm.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.util.UUID
 
@@ -11,10 +12,12 @@ class Question(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "layer_id", nullable = false)
+    @JsonIgnore
     var layer: Layer,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "factor_id", nullable = false)
+    @JsonIgnore
     var factor: Factor,
 
     var name: String,
