@@ -6,4 +6,6 @@ import ru.kentagon.dm.models.Milestone
 import java.util.UUID
 
 @Repository
-interface MilestoneRepository : JpaRepository<Milestone, UUID>
+interface MilestoneRepository : JpaRepository<Milestone, UUID> {
+    fun findFirstByOrderByDateFromDescIdAsc(): Milestone?
+}

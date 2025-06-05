@@ -18,6 +18,9 @@ class MilestoneController(private val milestoneService: MilestoneService) {
     fun getMilestoneById(@PathVariable id: UUID): Milestone =
         milestoneService.getMilestoneById(id)
 
+    @GetMapping("/last")
+    fun getMilestoneByLastDateFrom(): Milestone? = milestoneService.getMilestoneByLastDateFrom()
+
     @PostMapping
     fun createMilestone(@RequestBody milestoneDTO: CreateMilestoneDTO): Milestone =
         milestoneService.createMilestone(milestoneDTO)

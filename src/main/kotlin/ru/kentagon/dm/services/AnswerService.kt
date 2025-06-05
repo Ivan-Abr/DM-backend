@@ -21,8 +21,8 @@ class AnswerService(
 
     fun getAnswerById(id: UUID): Answer = answerRepository.findById(id).get()
 
-    fun createAnswer(answerDTO: CreateAnswerDTO): Answer =
-        answerRepository.save(
+    fun createAnswer(answerDTO: CreateAnswerDTO): Answer {
+        return answerRepository.save(
             Answer(
                 UUID.randomUUID(),
                 organization = organizationRepository.findById(answerDTO.organizationId).get(),
@@ -30,6 +30,7 @@ class AnswerService(
                 milestone = milestoneRepository.findById(answerDTO.milestoneId).get()
             )
         )
+    }
 
     fun updateAnswer(id: UUID, answerDTO: UpdateAnswerDTO): Answer {
         val answer = answerRepository.findById(id).get()

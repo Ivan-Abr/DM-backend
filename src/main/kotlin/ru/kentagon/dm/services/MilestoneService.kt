@@ -13,6 +13,8 @@ class MilestoneService(private val milestoneRepository: MilestoneRepository) {
 
     fun getMilestoneById(id: UUID): Milestone = milestoneRepository.findById(id).get()
 
+    fun getMilestoneByLastDateFrom(): Milestone? = milestoneRepository.findFirstByOrderByDateFromDescIdAsc()
+
     fun createMilestone(milestoneDTO: CreateMilestoneDTO): Milestone =
         milestoneRepository.save(
             Milestone(
