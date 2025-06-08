@@ -22,12 +22,17 @@ class AnswerService(
     fun getAnswerById(id: UUID): Answer = answerRepository.findById(id).get()
 
     fun createAnswer(answerDTO: CreateAnswerDTO): Answer {
+        val milestone = if (answerDTO.milestoneId != null) {
+            milestoneRepository.findById(answerDTO.milestoneId).get()
+        } else {
+            milestoneRepository.findFirstByOrderByDateFromDescIdAsc()
+        }
         return answerRepository.save(
             Answer(
                 UUID.randomUUID(),
                 organization = organizationRepository.findById(answerDTO.organizationId).get(),
                 mark = markRepository.findById(answerDTO.markId).get(),
-                milestone = milestoneRepository.findById(answerDTO.milestoneId).get()
+                milestone = milestone!!
             )
         )
     }
