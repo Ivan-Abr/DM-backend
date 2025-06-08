@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250608-1634-create_recommendations_table
+      author: Ivan Abramov
+      comment: Создание таблицы рекомендаций
+      changes:
+        - createTable:
+            tableName: recommendations
+            remarks: Рекомендации
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: layer_id
+                  remarks: Идентификатор слоя ЦЗ
+                  type: uuid
+              - column:
+                  name: value
+                  remarks: значение
+                  type: float
+                  constraints:
+                    nullable: false
+              - column:
+                  name: annotation
+                  remarks: Аннотация рекомендации
+                  type: text
+        - addForeignKeyConstraint:
+            baseColumnNames: layer_id
+            baseTableName: recommendations
+            constraintName: fk_recommendations_layers_id
+            referencedColumnNames: id
+            referencedTableName: layers
+            onDelete: CASCADE
+            onUpdate: NO ACTION
