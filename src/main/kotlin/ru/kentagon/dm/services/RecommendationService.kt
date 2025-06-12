@@ -20,6 +20,9 @@ class RecommendationService(
 
     fun getRecommendationById(id: UUID): ViewRecommendationDTO = ViewRecommendationDTO(recommendationRepository.findById(id).get())
 
+    fun getRecommendationByValueAndID(value: Float, id: UUID): ViewRecommendationDTO =
+        ViewRecommendationDTO(recommendationRepository.getByLayerAndValue(value, id).get())
+
     fun createRecommendation(recommendationDTO: CreateRecommendationDTO): Recommendation {
         val layer = layerRepository.findById(recommendationDTO.layerId).get()
         return recommendationRepository.save(

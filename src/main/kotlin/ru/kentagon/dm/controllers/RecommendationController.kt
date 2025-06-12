@@ -18,6 +18,12 @@ class RecommendationController(private val recommendationService: Recommendation
     fun getRecommendationById(@PathVariable id: UUID): ViewRecommendationDTO =
         recommendationService.getRecommendationById(id)
 
+    @GetMapping("value/{value}/layer/{layerId}")
+    fun getRecommendationByValueAndLayer(
+        @PathVariable value: Float,
+        @PathVariable layerId: UUID,
+    ): ViewRecommendationDTO = recommendationService.getRecommendationByValueAndID(value, layerId)
+
     @PostMapping
     fun createRecommendation(@RequestBody recommendationDTO: CreateRecommendationDTO): Recommendation =
         recommendationService.createRecommendation(recommendationDTO)
