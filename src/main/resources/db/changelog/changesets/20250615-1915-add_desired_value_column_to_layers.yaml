@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250615-1915-add_desired_value_column_to_layers.yaml
+      author: Ivan Abramov
+      comment: Добавление столбца желаемого значения в слои
+      changes:
+        - addColumn:
+            tableName: layers
+            columns:
+              - column:
+                  name: desired_value
+                  type: float
+                  constraints:
+                    nullable: true
