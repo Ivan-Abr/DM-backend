@@ -16,12 +16,6 @@ import io.swagger.v3.oas.annotations.servers.Server
         title = "dm-backend",
         version = "1.0",
     ),
-    servers = [
-        Server(
-            description = "Local Env",
-            url = "http://localhost:8080"
-        )
-    ],
     security = [
         SecurityRequirement(
             name = "bearerAuth"

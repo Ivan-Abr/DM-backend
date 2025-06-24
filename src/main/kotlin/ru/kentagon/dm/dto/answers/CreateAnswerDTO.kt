@@ -5,5 +5,5 @@ import java.util.UUID
 data class CreateAnswerDTO(
     val organizationId: UUID,
     val markId: UUID,
-    val milestoneId: UUID
+    val milestoneId: UUID?
 )

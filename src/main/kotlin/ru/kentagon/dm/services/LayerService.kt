@@ -14,11 +14,12 @@ class LayerService(private val layerRepository: LayerRepository) {
     fun getLayerById(id: UUID): Layer = layerRepository.findById(id).get()
 
     fun createLayer(createLayerDTO: CreateLayerDTO): Layer =
-        layerRepository.save(Layer(name = createLayerDTO.name))
+        layerRepository.save(Layer(name = createLayerDTO.name, desiredValue = createLayerDTO.desiredValue))
 
     fun updateLayer(id: UUID, updateLayerDTO: UpdateLayerDTO) : Layer {
         val layer = layerRepository.findById(id).get()
         updateLayerDTO.name?.let { layer.name = it }
+        updateLayerDTO.desiredValue?.let { layer.desiredValue =it }
         return layerRepository.save(layer)
     }
 

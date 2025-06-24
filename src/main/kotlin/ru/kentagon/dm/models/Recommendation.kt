@@ -2,11 +2,11 @@ package ru.kentagon.dm.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
-import java.util.UUID
+import java.util.*
 
 @Entity
-@Table(name = "questions")
-class Question(
+@Table(name = "recommendations")
+class Recommendation(
     @Id
     var id: UUID = UUID.randomUUID(),
 
@@ -15,12 +15,7 @@ class Question(
     @JsonIgnore
     var layer: Layer,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "factor_id", nullable = false)
-    @JsonIgnore
-    var factor: Factor,
-
-    var name: String,
+    var value: Float,
 
     var annotation: String
 )
