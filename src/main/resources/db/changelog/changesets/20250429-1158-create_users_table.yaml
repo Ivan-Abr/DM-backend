@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250429-1158-create_users_table
+      author: Ivan Abramov
+      comment: Создание таблицы пользователей
+      changes:
+        - createTable:
+            tableName: users
+            remarks: Пользователи
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  remarks: Имя пользователя
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  remarks: Почта пользователя
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  remarks: Пароль
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  remarks: Роль пользователя
+                  type: varchar(100)
+                  constraints:
+                    nullable: false

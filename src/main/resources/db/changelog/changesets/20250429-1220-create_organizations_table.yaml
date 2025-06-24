@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250429-1220-create_organizations_table
+      author: Ivan Abramov
+      comment: Создание таблицы организаций
+      changes:
+        - createTable:
+            tableName: organizations
+            remarks: Организации
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: expert_id
+                  remarks: Идентификатор эксперта
+                  type: uuid
+              - column:
+                  name: name
+                  remarks: Наименование
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: annotation
+                  remarks: Аннотация
+                  type: text
+              - column:
+                  name: contacts
+                  remarks: Контакты
+                  type: text
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: expert_id
+            baseTableName: organizations
+            constraintName: fk_organizations_experts_id
+            referencedColumnNames: id
+            referencedTableName: users
+            onDelete: CASCADE
+            onUpdate: NO ACTION

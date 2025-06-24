@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250429-1326-create_factor_table
+      author: Ivan Abramov
+      comment: Создание таблицы факторов ЦЗ
+      changes:
+        - createTable:
+            tableName: factors
+            remarks: Факторы ЦЗ
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  remarks: Наименование фактора
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: shortname
+                  remarks: Краткое наименование
+                  type: varchar(100)

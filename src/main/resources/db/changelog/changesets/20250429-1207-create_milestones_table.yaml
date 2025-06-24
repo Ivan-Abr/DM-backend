@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250429-1207-create_milestones_table
+      author: Ivan Abramov
+      comment: Создание таблицы вех
+      changes:
+        - createTable:
+            tableName: milestones
+            remarks: Вехи
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: date_from
+                  remarks: Дата начала
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_to
+                  remarks: Дата конца
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: year
+                  remarks: Год
+                  type: int
+                  constraints:
+                    nullable: false

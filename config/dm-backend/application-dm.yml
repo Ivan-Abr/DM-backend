@@ -1,0 +1,6 @@
+dm:
+  jdbc-name: ${spring.application.name}
+  jwt:
+    secret-key: ${JWT_SECRET}
+    access-duration: ${JWT_ACCESS_DURATION}
+    refresh-duration: ${JWT_REFRESH_DURATION}

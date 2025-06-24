@@ -41,3 +41,5 @@ out/
 /gradlew
 /gradlew.bat
 /.gitattributes
+/config/dm-backend/application-local.yml
+/config/dm-backend/application-test.yml

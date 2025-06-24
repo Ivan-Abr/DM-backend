@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250429-1345-create_questions_table
+      author: Ivan Abramov
+      comment: Создание таблицы вопросов
+      changes:
+        - createTable:
+            tableName: questions
+            remarks: Вопросы
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: layer_id
+                  remarks: Идентификатор слоя ЦЗ
+                  type: uuid
+              - column:
+                  name: factor_id
+                  remarks: Идентификатор фактора ЦЗ
+                  type: uuid
+              - column:
+                  name: name
+                  remarks: Название вопроса
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: annotation
+                  remarks: Аннотация вопроса
+                  type: text
+        - addForeignKeyConstraint:
+            baseColumnNames: layer_id
+            baseTableName: questions
+            constraintName: fk_questions_layers_id
+            referencedColumnNames: id
+            referencedTableName: layers
+            onDelete: CASCADE
+            onUpdate: NO ACTION
+        - addForeignKeyConstraint:
+            baseColumnNames: factor_id
+            baseTableName: questions
+            constraintName: fk_questions_factors_id
+            referencedColumnNames: id
+            referencedTableName: factors
+            onDelete: CASCADE
+            onUpdate: NO ACTION

@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20252904-1730-create_marks_table
+      author: Ivan Abramov
+      comment: Создание таблицы оценок ЦЗ
+      changes:
+        - createTable:
+            tableName: marks
+            remarks: Оценки ЦЗ
+            columns:
+              - column:
+                  name: id
+                  remarks: Идентификатор
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: question_id
+                  remarks: Идентификатор вопроса ЦЗ
+                  type: uuid
+              - column:
+                  name: annotation
+                  remarks: описание
+                  type: text
+              - column:
+                  name: value
+                  remarks: значение оценки
+                  type: int
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: question_id
+            baseTableName: marks
+            constraintName: fk_marks_questions_id
+            referencedColumnNames: id
+            referencedTableName: questions
+            onDelete: CASCADE
+            onUpdate: NO ACTION
