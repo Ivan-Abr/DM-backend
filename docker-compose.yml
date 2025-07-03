@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "3002"
+      POSTGRES_DB: dm_dev
+      PGDATA: /var/lib/postgresql/data/pgdata
+    expose:
+      - "5433"
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+    command: >
+      postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d speedrun" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - backend
+
+  seaweedfs:
+    image: chrislusf/seaweedfs:latest
+    container_name: seaweedfs
+    restart: always
+    command: "master -ip=seaweedfs -port=9333"
+    expose:
+      - "9333"
+    networks:
+      - backend
+
+  dm:
+    build: .
+    container_name: dm
+    restart: always
+    depends_on:
+      - postgres
+      - seaweedfs
+    environment:
+      DB_HOST: "postgres:5432"
+      JWT_SECRET: "SECRET"
+      JWT_ACCESS_DURATION: "3600"
+      JWT_REFRESH_DURATION: "3600"
+      SEAWEEDFS_URI: "http://seaweedfs:9333"
+    ports:
+      - "9090:8080"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  db-data:
