@@ -2,32 +2,22 @@ services:
   postgres:
     image: "postgres:latest"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "3002"
-      POSTGRES_DB: dm_dev
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
       PGDATA: /var/lib/postgresql/data/pgdata
     expose:
-      - "5433"
+      - ${DB_PORT}
     volumes:
       - db-data:/var/lib/postgresql/data/pgdata
     command: >
       postgres
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d speedrun" ]
+      test: [ "CMD-SHELL", "pg_isready -U $${DB_USER} -d $${DB_NAME}" ]
       interval: 30s
       timeout: 10s
       retries: 5
     restart: unless-stopped
-    networks:
-      - backend
-
-  seaweedfs:
-    image: chrislusf/seaweedfs:latest
-    container_name: seaweedfs
-    restart: always
-    command: "master -ip=seaweedfs -port=9333"
-    expose:
-      - "9333"
     networks:
       - backend
 
@@ -37,13 +27,12 @@ services:
     restart: always
     depends_on:
       - postgres
-      - seaweedfs
     environment:
-      DB_HOST: "postgres:5432"
-      JWT_SECRET: "SECRET"
-      JWT_ACCESS_DURATION: "3600"
-      JWT_REFRESH_DURATION: "3600"
-      SEAWEEDFS_URI: "http://seaweedfs:9333"
+      SPRING_PROFILES_ACTIVE: default, dm
+      DB_HOST: ${DB_HOST}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ACCESS_DURATION: ${JWT_ACCESS_DURATION}
+      JWT_REFRESH_DURATION: ${JWT_REFRESH_DURATION}
     ports:
       - "9090:8080"
     networks:
