@@ -21,7 +21,7 @@ FROM openjdk:21-slim
 WORKDIR /app
 
 COPY --from=builder /app/build/libs/dm.jar dm.jar
-COPY --from=builder /app/config/dm-backend/application.yml .
+COPY --from=builder /app/config/dm-backend/*.yml .
 
 EXPOSE 8080
 
