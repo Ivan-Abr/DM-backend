@@ -38,6 +38,19 @@ services:
     networks:
       - backend
 
+  frontend:
+    build:
+      context: ..//DM-frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://dm:8080
+    ports:
+      - "3000:80"
+    depends_on:
+      - dm
+    networks:
+      - backend
+
 networks:
   backend:
     driver: bridge
