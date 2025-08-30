@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    expose:
+      - ${DB_PORT}
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+    command: >
+      postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${DB_USER} -d $${DB_NAME}" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - backend
+
+  dm:
+    build: .
+    container_name: dm
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: default, dm
+      DB_HOST: ${DB_HOST}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ACCESS_DURATION: ${JWT_ACCESS_DURATION}
+      JWT_REFRESH_DURATION: ${JWT_REFRESH_DURATION}
+    ports:
+      - "9090:8080"
+    networks:
+      - backend
+
+  frontend:
+    build:
+      context: ..//DM-frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://dm:8080
+    ports:
+      - "3000:80"
+    depends_on:
+      - dm
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  db-data:
