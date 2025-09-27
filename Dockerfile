@@ -1,5 +1,5 @@
 # Этап сборки
-FROM gradle:8-jdk21 as builder
+FROM gradle:9.0.0-jdk as builder
 
 WORKDIR /app
 
